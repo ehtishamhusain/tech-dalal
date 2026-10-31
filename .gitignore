@@ -1,0 +1,21 @@
+# Node / Vite
+frontend/node_modules/
+frontend/dist/
+frontend/.env.local
+
+# Python / Virtual Environment
+.venv/
+venv/
+env/
+__pycache__/
+*.pyc
+
+# Local Secrets (Never upload API keys to GitHub)
+.env
+*.env
+
+# OS / Editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

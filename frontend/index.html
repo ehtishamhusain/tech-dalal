@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tech Dalal - AI Gadget Recommender</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    @keyframes floatOrbs {
+
+      0%,
+      100% {
+        transform: translate(0px, 0px) scale(1);
+      }
+
+      50% {
+        transform: translate(30px, -40px) scale(1.1);
+      }
+    }
+
+    @keyframes pulseGlowDark {
+
+      0%,
+      100% {
+        box-shadow: 0 0 25px rgba(59, 130, 246, 0.3), 0 0 50px rgba(147, 51, 234, 0.15);
+      }
+
+      50% {
+        box-shadow: 0 0 45px rgba(59, 130, 246, 0.5), 0 0 80px rgba(147, 51, 234, 0.3);
+      }
+    }
+
+    @keyframes pulseGlowLight {
+
+      0%,
+      100% {
+        box-shadow: 0 0 25px rgba(37, 99, 235, 0.2), 0 0 40px rgba(147, 51, 234, 0.1);
+      }
+
+      50% {
+        box-shadow: 0 0 40px rgba(37, 99, 235, 0.35), 0 0 60px rgba(147, 51, 234, 0.2);
+      }
+    }
+
+    @keyframes introEntrance {
+      0% {
+        opacity: 0;
+        transform: translateY(30px) scale(0.95);
+        filter: blur(10px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes slideDownHeader {
+      from {
+        opacity: 0;
+        transform: translateY(-15px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-intro-1 {
+      animation: introEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .animate-intro-2 {
+      animation: introEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+      opacity: 0;
+    }
+
+    .animate-intro-3 {
+      animation: introEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+      opacity: 0;
+    }
+
+    .animate-header-down {
+      animation: slideDownHeader 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .glowing-dark-box {
+      animation: pulseGlowDark 3.5s infinite ease-in-out;
+    }
+
+    /* Sleek dark scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border-radius: 9999px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #475569;
+    }
+
+    /* ===================================================
+   SPEC MATRIX TABLE LIGHT MODE HIGH-CONTRAST OVERRIDES
+   =================================================== */
+    body.light-mode table {
+      background-color: #ffffff !important;
+      color: #0f172a !important;
+    }
+
+    body.light-mode table th {
+      background-color: #f1f5f9 !important;
+      color: #1e293b !important;
+      /* Bold dark slate headers */
+      font-weight: 700 !important;
+    }
+
+    body.light-mode table td {
+      color: #0f172a !important;
+    }
+
+    /* Force processor, RAM, and store text to dark readable slate */
+    body.light-mode table td .text-slate-300,
+    body.light-mode table td .text-slate-400,
+    body.light-mode table td div {
+      color: #1e293b !important;
+      /* Deep readable dark navy */
+    }
+
+    body.light-mode table td .text-slate-500 {
+      color: #475569 !important;
+      /* Medium dark slate for secondary specs */
+      font-weight: 600 !important;
+    }
+
+    /* Showdown Scorecard Light Mode text */
+    body.light-mode .showdown-card span {
+      color: #334155 !important;
+    }
+
+    body.light-mode .showdown-card div {
+      color: #0f172a !important;
+    }
+
+    /* =======================================
+   LIGHT MODE HIGH-CONTRAST TEXT OVERRIDES
+   ======================================= */
+    body.light-mode {
+      background-color: #f8fafc !important;
+      color: #0f172a !important;
+    }
+
+    /* 1. "Hello, Gadget Hunter" & Subtitle */
+    body.light-mode h2,
+    body.light-mode .animate-intro-1 {
+      color: #0f172a !important;
+      /* Deep dark navy */
+    }
+
+    body.light-mode .animate-intro-2 {
+      color: #334155 !important;
+      /* Crisp readable slate */
+    }
+
+    /* 2. User Typed Text in Chatbox */
+    body.light-mode input[type="text"] {
+      color: #0f172a !important;
+      /* Crisp dark navy text */
+      font-weight: 500 !important;
+    }
+
+    body.light-mode input::placeholder {
+      color: #64748b !important;
+      /* Clean gray placeholder */
+    }
+
+    /* 3. Recent Searches in Sidebar */
+    body.light-mode aside {
+      background-color: #ffffff !important;
+      border-color: #e2e8f0 !important;
+      color: #0f172a !important;
+      box-shadow: 4px 0 25px rgba(0, 0, 0, 0.05);
+    }
+
+    body.light-mode aside span {
+      color: #1e293b !important;
+      /* Dark bold text */
+    }
+
+    body.light-mode aside .text-slate-500,
+    body.light-mode aside .text-slate-400 {
+      color: #475569 !important;
+      /* Darker heading for "RECENT SEARCHES" */
+    }
+
+    /* 4. Chatbox pill background in Light Mode */
+    body.light-mode .light-input-box {
+      background-color: #ffffff !important;
+      border-color: #93c5fd !important;
+      box-shadow: 0 10px 30px -5px rgba(59, 130, 246, 0.15) !important;
+    }
+
+    body {
+      background-color: #030712;
+      background-image:
+        radial-gradient(circle at 15% 20%, rgba(29, 78, 216, 0.15) 0%, transparent 40%),
+        radial-gradient(circle at 85% 80%, rgba(126, 34, 206, 0.12) 0%, transparent 40%);
+      color: #f8fafc;
+      font-family: system-ui, -apple-system, sans-serif;
+      position: relative;
+      overflow: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: '';
+      position: absolute;
+      width: 450px;
+      height: 450px;
+      border-radius: 50%;
+      filter: blur(90px);
+      z-index: -1;
+      opacity: 0.4;
+      animation: floatOrbs 10s infinite ease-in-out;
+    }
+
+    body::before {
+      top: -100px;
+      left: -100px;
+      background: rgba(37, 99, 235, 0.25);
+    }
+
+    body::after {
+      bottom: -100px;
+      right: -100px;
+      background: rgba(147, 51, 234, 0.2);
+      animation-delay: -5s;
+    }
+
+    body.light-mode {
+      background-color: #f8fafc !important;
+      background-image:
+        radial-gradient(circle at 15% 20%, rgba(59, 130, 246, 0.12) 0%, transparent 45%),
+        radial-gradient(circle at 85% 80%, rgba(168, 85, 247, 0.08) 0%, transparent 45%) !important;
+      color: #0f172a !important;
+    }
+
+    body.light-mode aside {
+      background: rgba(255, 255, 255, 0.95) !important;
+      border-color: #cbd5e1 !important;
+      box-shadow: 4px 0 25px rgba(0, 0, 0, 0.04);
+    }
+
+    body.light-mode .light-card {
+      background-color: #ffffff !important;
+      border-color: #cbd5e1 !important;
+      color: #0f172a !important;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08) !important;
+    }
+
+    body.light-mode .light-card h4 {
+      color: #0f172a !important;
+    }
+
+    body.light-mode .light-card p {
+      color: #334155 !important;
+    }
+
+    body.light-mode .light-input-box {
+      background-color: #ffffff !important;
+      border-color: #3b82f6 !important;
+    }
+
+    body.light-mode #userInput {
+      color: #0f172a !important;
+    }
+
+    body.light-mode #userInput::placeholder {
+      color: #64748b !important;
+    }
+  </style>
+</head>
+
+<body class="min-h-screen text-slate-100 overflow-hidden">
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
+</html>
